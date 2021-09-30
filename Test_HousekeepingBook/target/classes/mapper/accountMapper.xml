@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.test.housebook.dao.AccountMapper">
+<!-- 회원가입-->
+<insert id="join" parameterType="account">
+insert into account_tb(
+	acc_id
+	,acc_nm
+	,acc_pw
+)values(
+	#{acc_id}
+	,#{acc_nm}
+	,#{acc_pw}
+)
+</insert>
+
+<!-- 로그인, ID중복검사  -->
+<select id="login" parameterType="account" resultType="String">
+  select
+  	acc_id
+  from
+  	account_tb
+  <where>
+  	acc_id = #{acc_id}
+  <if test="acc_pw != null">
+  and
+  	acc_pw = #{acc_pw}
+  </if>
+  </where>
+</select>
+	
+</mapper>
